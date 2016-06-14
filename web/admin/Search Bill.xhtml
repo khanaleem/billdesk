@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <title>Search</title>
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/syntaxhighlighter/syntaxhighlighter.css" />
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+
+
+
+
+        </style>
+    </h:head>
+
+    <f:view contentType="text/html">
+        <h:body  >
+            <p:layout fullPage="true" >
+                <p:layoutUnit position="north"  size="" resizable="true" gutter="0" >
+
+                    <ui:include src="/admin/Header.xhtml" />
+                </p:layoutUnit>
+                <p:layoutUnit position="west" size="210" resizable="true" closable="true" collapsible="true" gutter="0">
+                    <ui:include src="/admin/Menue.xhtml" />
+                </p:layoutUnit>
+                <p:layoutUnit position="center" gutter="0">
+
+                    <h:form id="form1"   >  
+                        <script type="text/javascript">
+                            /* <![CDATA[ */
+                            jQuery(myTblWidget.jqId).find('th .ui-column-filter[onenter]').each(function (idx) {
+                                var curEl = jQuery(this);
+                                curEl.unbind('keydown');
+
+                                curEl.keydown(function (event) {
+                                    var e = (window.event) ? window.event : event;
+                                    if (e.keyCode === 13) {
+                                        event.preventDefault();
+                                        eval(curEl.attr('onenter'));
+                                    }
+                                });
+                            });
+                            /* ]]> */
+                        </script>
+                        <p:dataTable filterEvent="enter"   id="dataTable" scrollable="true" scrollRows="300"  liveScroll="true"  scrollHeight="540" value="#{invoiceSearch.getInvData(login.region,login.dbrole)}"
+                                     var="o" widgetVar="os" >
+
+
+                            <p:column  headerText="Receipt ID"   filterBy="#{o.receiptID}"  >
+                                <f:facet name="header">  
+                                    <h:outputText value="Receipt ID" />  
+                                </f:facet>
+                                <h:outputText value="#{o.receiptID}"/>
+                            </p:column>
+                            <p:column headerText="Invoice Number" filterBy="#{o.invoiceNumber}">
+
+                                <h:outputText value="#{o.invoiceNumber}"/>
+                            </p:column>
+                            <p:column headerText="Vender Name" filterBy="#{o.venderName}" > 
+                                <h:outputText value="#{o.venderName}"/>
+                            </p:column>                          
+                            <p:column headerText="PO Number" filterBy="#{o.PONumber}"> 
+                                <h:outputText value="#{o.PONumber}"/>
+                            </p:column>
+                            <p:column headerText="Receiving Date" filterBy="#{o.receivingDate}"> 
+                                 <h:outputText value="#{o.receivingDate}"/>
+                            </p:column>
+
+                            <p:column headerText="Courier/DDSNo" filterBy="#{o.courierName.trim()}" >                  
+                                <h:outputText value="#{o.courierName.trim()}"/> 
+                            </p:column>
+
+
+                            <p:column headerText="Sender Name" filterBy="#{o.senderName}"> 
+                                <h:outputText value="#{o.senderName}"/>
+                            </p:column>
+
+                            <p:column headerText="Sender No" filterBy="#{o.senderNo}"> 
+                                <h:outputText value="#{o.senderNo}"/>
+                            </p:column>
+                            <p:column headerText="Amount" filterBy="#{o.amount}"> 
+                                <h:outputText value="#{o.amount}"/>
+                            </p:column>
+                            <p:column headerText="Region" filterBy="#{o.region}"> 
+                                <h:outputText value="#{o.region}"/>
+                            </p:column>
+                            <p:column headerText="AP Number" filterBy="#{o.APNo}"> 
+                                <h:outputText value="#{o.APNo}"/>
+                            </p:column>                            
+                        </p:dataTable>
+                        <p:blockUI  block="dataTable"  trigger="dataTable">
+                            <p:graphicImage  value="/ajax-loader-bar.gif"/>  
+
+
+                        </p:blockUI>
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="south"  gutter="0" >
+                    <ui:include src="/admin/Footer.xhtml" />
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+
+    </f:view>
+
+</html>

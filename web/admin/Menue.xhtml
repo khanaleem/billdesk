@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+         
+        <ui:composition> 
+            <h:form>
+                <style>
+
+                    ul.ui-menu-list li a:hover,ul.ui-menu-list li a.ui-state-active
+                    {
+                        background:  darkturquoise !important;
+                        border-color: darkturquoise !important;
+                        
+
+                    }
+
+                    ul.ui-menu-list li a span.ui-menuitem-icon
+                    {
+                        color:#ff0000 !important;
+                       
+                         
+                    }
+                     
+                    ul.ui-menu-list li a:active {
+                        background-color: #3e8e41;
+                        box-shadow: 0 5px #666;
+                        transform: translateY(2px);
+                       
+                    }
+
+                </style>
+                <p:menu  style=" width: 95%; background-color: #c1e8d3;border-color: #c1e8d3">                            
+
+                    <p:menuitem style="border-color: #045491;border-radius: 4px; margin-bottom:  2px; background-color: #045491; color:#ffffff ;font-size: medium;box-shadow:0 3px gray;border-color: #045491;"  value="Inward Entry" styleClass="#{view.viewId == '/admin/Bill Entry.xhtml' ? 'ui-state-active' : ''}" outcome="/admin/Bill Entry.xhtml" icon="ui-icon-note"/>
+                    <p:menuitem style="border-color: #ffffff ;border-radius: 4px; margin-bottom:  2px; background-color: #045491; color: #ffffff;font-size: medium;box-shadow:0 3px gray;border-color: #045491;" value="Inward Check" styleClass="#{view.viewId == '/admin/Invoice Check.xhtml' ? 'ui-state-active' : ''}" outcome="/admin/Invoice Check.xhtml" icon="ui-icon-check"  />
+                    <p:menuitem style="border-color: #ffffff ;border-radius: 4px;  margin-bottom:  2px;background-color: #045491; color: #ffffff;font-size: medium;box-shadow: 0 3px gray;border-color: #045491;" value="Search" styleClass="#{view.viewId == '/admin/Search Bill.xhtml' ? 'ui-state-active' : ''}" outcome="/admin/Search Bill.xhtml" icon="ui-icon-search " />
+                    <p:menuitem style="border-color: #ffffff ;border-radius: 4px;  margin-bottom:  2px;  background-color: #045491; color: #ffffff;font-size: medium;box-shadow:0 3px gray;border-color: #045491;" value="Inward Edit" styleClass="#{view.viewId == '/admin/Inward Edit.xhtml' ? 'ui-state-active' : ''}" outcome="/admin/Inward Edit.xhtml" icon="ui-icon-pencil" />
+                    <p:menuitem style="border-color: #ffffff ;border-radius: 4px;  margin-bottom:  2px;  background-color: #045491; color: #ffffff;font-size: medium;box-shadow:0 3px gray;border-color: #045491;" value="Create User" styleClass="#{view.viewId == '/admin/register.xhtml' ? 'ui-state-active' : ''}" outcome="/admin/register.xhtml" icon="ui-icon-person"/>
+                    <p:menuitem style="border-color: #ffffff ;border-radius: 4px; margin-bottom:  2px;  background-color: #045491; color: #ffffff;font-size: medium;box-shadow:0 3px gray;border-color: #045491;" value="Edit User" styleClass="#{view.viewId == '/admin/edituser.xhtml' ? 'ui-state-active' : ''}" outcome="/admin/edituser.xhtml" icon="ui-icon-wrench"/>
+                    <p:menuitem style="border-color: #ffffff ;border-radius: 4px;  background-color: #045491; color: #ffffff;font-size: medium;box-shadow:0 3px gray;border-color: #045491;" value="Report" styleClass="#{view.viewId == '/admin/invoiceentry.xhtml' ? 'ui-state-active' : ''}" outcome="/admin/invoiceentry.xhtml" icon="ui-icon-bookmark"/>
+                    
+                </p:menu> 
+            </h:form>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <title>AP Acknowledgment</title>
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/syntaxhighlighter/syntaxhighlighter.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+
+            *
+            {
+                margin: 0px;
+                padding:0px;               
+            } 
+
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+
+            .dataTables_filter {
+                display: none;
+            }
+
+
+
+        </style>
+    </h:head>
+
+    <f:view contentType="text/html">
+        <h:body  >
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" gutter="0" size="" resizable="true"  >
+                    <ui:include src="/user/Header.xhtml" />
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="210" gutter="0" resizable="true" closable="true" collapsible="true">
+                    <ui:include src="/user/Menue.xhtml" />
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center" gutter="0">
+
+                    <h:form id="form">
+                        
+                        <p:growl id="msgs" showDetail="true"/>
+
+
+
+                         
+                            <h:panelGrid  columns="4" >
+                                <p:selectOneMenu id="comName" value="#{aPACK.searchtype}" style="width:125px" required="true">
+                                                        <f:selectItem itemLabel="Select Category" itemValue="" noSelectionOption="true" />
+                                                        <f:selectItem itemLabel="Receipt ID" itemValue="ReceiptID" />
+                                                        <f:selectItem itemLabel="DDS No" itemValue="DDS" />
+                                                        <f:selectItem itemLabel="Courier No" itemValue="Courier" /> 
+                                                    </p:selectOneMenu>
+                                <p:inputText  value="#{aPACK.search}" placeholder="Enter for Search"/> 
+                                <p:commandButton id="p"  update="dataTable"   actionListener="#{aPACK.getSearchedList(login.region,aPACK.searchtype,aPACK.search)}"  icon="ui-icon-search" />
+                            </h:panelGrid> 
+                        <p:dataTable  id="dataTable"  scrollable="true"   scrollHeight="515"  var="DDS" value="#{aPACK.getSearchedList(login.region,aPACK.searchtype,aPACK.search)}" >
+
+
+                            <p:column  headerText="AP" style="width:26px">
+                                <p:rowToggler  />
+                            </p:column>
+
+                            <p:column    headerText="DDS No." style="width: 60px">
+                                <h:outputText  value="#{DDS.DDSNO}" />
+                            </p:column>
+                            <p:column headerText="Sender Email ">
+                                <h:outputText value="#{DDS.emailID}" />
+                            </p:column>
+                            <p:column headerText="Options" style="width: 140px">
+
+                                <p:commandButton  id="saveBtn1"  update="dataTable" process="@this" actionListener="#{aPMail.mailAP(DDS.DDSNO,DDS.courierNO)}"  value="Send Mail" styleClass="MAIL" />
+                                <p:blockUI block="dataTable" trigger="saveBtn1"  >
+
+                                    <p:graphicImage  value="/ajax-loader-bar.gif"/>
+                                </p:blockUI>
+
+                            </p:column>
+
+                            <p:rowExpansion  >
+
+                                <ui:include  src="/user/DDS.xhtml" />
+
+                            </p:rowExpansion>
+
+
+                        </p:dataTable>
+
+                    </h:form> 
+                </p:layoutUnit>
+                <p:layoutUnit position="south" gutter="0"  >
+                    <ui:include src="/user/Footer.xhtml" />
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+
+    </f:view>
+
+</html>

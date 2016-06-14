@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <title>Remarks</title>
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/syntaxhighlighter/syntaxhighlighter.css" />
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+             *
+            {
+                margin: 0px;
+                padding:0px;               
+            } 
+             
+
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+            .customTitleBar > .ui-dataTable-titlebar {
+                background: #036fab;
+                color: #ffffff;
+                padding: 0;
+            }
+        </style>
+        <script type="text/javascript">
+/* <![CDATA[ */
+  jQuery(myTblWidget.jqId).find('th .ui-column-filter[onenter]').each(function(idx) {
+  var curEl = jQuery(this);
+  curEl.unbind('keydown');
+ 
+  curEl.keydown(function(event) {
+    var e = (window.event) ? window.event : event;
+    if(e.keyCode === 13) {
+      event.preventDefault();
+      eval(curEl.attr('onenter'));
+    }
+  });
+});
+/* ]]> */
+</script>
+    </h:head>
+
+    <f:view contentType="text/html">
+        <h:body  >
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" gutter="0" size="" resizable="true"  >
+
+                    <ui:include src="/admin/Header.xhtml" />
+                </p:layoutUnit>
+                <p:layoutUnit position="west" gutter="0" size="210"  resizable="true" closable="true" collapsible="true">
+                    <ui:include src="/admin/Menue.xhtml" />
+                </p:layoutUnit>
+                <p:layoutUnit position="center" gutter="0">
+                    <h:form id="form">
+                        <p:growl id="msgs" showDetail="true"/>
+                      
+                        <p:dataTable  id="dataTable" filterEvent="enter" paginatorPosition="bottom"  var="IN" scrollable="true"   scrollHeight="480" value="#{disputedInvoice.getckData(login.region)}"   widgetVar="os"   rows="30"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15,30"  >
+                            <f:facet name="header" >
+                                Invoice Check   
+                              
+                            </f:facet>
+                           
+                            <p:column headerText="Check List"  style="width:26px">
+                                <p:rowToggler />
+                            </p:column>
+
+                            <p:column headerText="Receipt ID"   style="width:60px">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{IN.receiptID}" /></f:facet>
+                                    <f:facet name="input"><p:inputText disabled="true" id="modelInput" value="#{IN.receiptID}" style="width:40px"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Invoice No"  style="width:80px">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{IN.invoiceNo}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{IN.invoiceNo}" disabled="true" style="width:100%" label="Year"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Vendor Name"  >
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{IN.venderName}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{IN.venderName}" disabled="true" style="width:100%" label="Year"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Remarks"    >
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{IN.remarks}" /></f:facet>
+                                    <f:facet name="input"><p:inputText disabled="true" value="#{IN.remarks}" style="width:100%" label="Year"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                   
+
+
+                           
+                            <p:rowExpansion>
+                                <p:panelGrid  columns="2" columnClasses="label,value" style="background-color: #29b6a0; width:600px">
+
+                                    <h:outputLabel   value=" Invoice date available " />
+                                    <h:outputText value="#{IN.INVD}" /> 
+
+                                    <h:outputText value="* Invoice No. availble " />
+                                    <h:outputText value="#{IN.INVNO}" />
+                                    <h:outputText value="* Vendor name &amp; address available " />
+                                    <h:outputText value="#{IN.VNAD}" /> 
+                                    <h:outputText value=" Company name &amp; address available" />
+                                    <h:outputText value="#{IN.CNAD}" /> 
+                                    <h:outputText value=" Seprate ST &amp; SBC available" />
+                                    <h:outputText value="#{IN.STSBC}" /> 
+                                    <h:outputText value="* Actual invoice " />
+                                    <h:outputText value="#{IN.AI}" /> 
+                                    <h:outputText value="Invoice with multiple PO." />
+
+                                    <h:outputText value="#{IN.IVMPO}" /> 
+                                    <h:outputText value="NON-PO: Costcenter, WBS, Project code mentioned " />
+                                    <h:outputText value="#{IN.NPOCWPC}" /> 
+                                    <h:outputText value="NON-PO: Nature of expence &amp; vendor code mentioned " />
+                                    <h:outputText value="#{IN.NPONEVC}" /> 
+                                    <h:outputText value=" NON-PO: Authorised signatory sign available " />
+                                    <h:outputText value="#{IN.NPOASIN}" />  
+                                    <h:outputText value=" PO: PO No. &frasl; PO copy mentioned &frasl;attached "  />
+                                    <h:outputText value="#{IN.PONOA}" /> 
+                                    <h:outputText value="PO Required: Invoive amt. &gt; 20000 " />
+                                    <h:outputText value="#{IN.POR2K}" /> 
+                                    <h:outputText value=" PO: Vendor signature available " />
+                                    <h:outputText value="#{IN.POVSIN}" /> 
+                                    <h:outputText value="* PAN No. available on invoice " />
+                                    <h:outputText value="#{IN.PANNO}" /> 
+                                    <h:outputText value="ST/TIN No. available on invoice  " />
+                                    <h:outputText value="#{IN.STTIN}" />
+                                     </p:panelGrid>
+                            </p:rowExpansion>
+
+
+                        </p:dataTable>
+                        <p:blockUI  block="dataTable"  trigger="dataTable">
+                               Processing Request<br />                            
+                            <p:graphicImage   value="/ajax-loader-bar.gif"/>  
+
+
+                        </p:blockUI>
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="south"  gutter="0" >
+                    <ui:include src="/admin/Footer.xhtml" />
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+
+    </f:view>
+
+</html>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <title>Inward Edit</title>
+
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/syntaxhighlighter/syntaxhighlighter.css" />
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+
+
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+            *
+            {
+                margin: 0px;
+                padding:0px;               
+            } 
+
+            .ui-datatable-header {
+                background: #23a38f;
+                color: #ffffff;
+            }
+
+
+        </style>
+    </h:head>
+
+    <f:view contentType="text/html">
+        <h:body  >
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" gutter="2" size="" resizable="true"  >
+
+                    <ui:include src="/user/Header.xhtml" />
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" gutter="0" size="210"  resizable="true" closable="true" collapsible="true">
+                    <ui:include src="/user/Menue.xhtml" />
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center" gutter="0">              
+                    <h:form id="enter">
+                        <p:growl id="growl" sticky="false" />  
+                        
+                            <h:panelGrid  columns="1" > 
+                                <h:panelGrid  columns="4" >
+                                    <p:calendar id="button" value="#{userpanal.FReciDate}" showOn="button" />
+                                    <p:calendar   value="#{userpanal.TReciDate}" showOn="button" />
+                                    <p:commandButton    update="enter"   actionListener="#{userpanal.Search(userpanal.FReciDate,userpanal.TReciDate)}"  icon="ui-icon-search" />
+
+                                   
+                                </h:panelGrid>
+                                <p:scrollPanel  style="border-color:  #caf1f1;background: #caf1f1;width: 1100px; height:550px">
+                                <script type="text/javascript">
+                            /* <![CDATA[ */
+                            jQuery(myTblWidget.jqId).find('th .ui-column-filter[onenter]').each(function (idx) {
+                                var curEl = jQuery(this);
+                                curEl.unbind('keydown');
+
+                                curEl.keydown(function (event) {
+                                    var e = (window.event) ? window.event : event;
+                                    if (e.keyCode === 13) {
+                                        event.preventDefault();
+                                        eval(curEl.attr('onenter'));
+                                    }
+                                });
+                            });
+                            /* ]]> */
+                        </script>
+                         <p:dataTable filterEvent="enter"   id="dataTable" scrollable="true" scrollRows="200"  liveScroll="true"  scrollHeight="510" value="#{userpanal.getInvData(login.user)}"
+                                     var="o" widgetVar="os" >
+
+ 
+                            <p:column  headerText="Receipt ID"    >
+                                <f:facet name="header">  
+                                    <h:outputText value="Receipt ID" />  
+                                </f:facet>
+                                <h:outputText value="#{o.receiptID}"/>
+                            </p:column>
+                            <p:column headerText="Invoice Number" >
+
+                                <h:outputText value="#{o.invoiceNumber}"/>
+                            </p:column>
+                            <p:column headerText="Vender Name"   > 
+                                <h:outputText value="#{o.venderName}"/>
+                            </p:column>                          
+                            <p:column headerText="PO Number"  > 
+                                <h:outputText value="#{o.PONumber}"/>
+                            </p:column>
+                            <p:column headerText="Receiving Date" > 
+                                <h:outputText value="#{o.receivingDate}"/>
+                            </p:column>
+
+                            <p:column headerText="Courier/DDSNo"   >                  
+                                <h:outputText value="#{o.courierName.trim()}"/> 
+                            </p:column>
+
+
+                            <p:column headerText="Sender Name" > 
+                                <h:outputText value="#{o.senderName}"/>
+                            </p:column>
+
+                            <p:column headerText="Sender No"  > 
+                                <h:outputText value="#{o.senderNo}"/>
+                            </p:column>
+                            <p:column headerText="AP Number"  > 
+                                <h:outputText value="#{o.APNo}"/>
+                            </p:column>                            
+                        </p:dataTable>
+                        <p:blockUI  block="dataTable"  trigger="dataTable">
+                            Processing Request<br />
+                            <p:graphicImage  value="/ajax-loader-bar.gif"/>  
+
+
+                        </p:blockUI>
+                             </p:scrollPanel>
+                             
+                         
+                            </h:panelGrid> 
+
+                       
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="south" gutter="2"  >
+                    <ui:include src="/user/Footer.xhtml" />
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>

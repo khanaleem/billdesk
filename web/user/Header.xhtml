@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+
+        <ui:composition> 
+            <h:form id="formheader">
+
+                <p:growl id="messagesheader"  sticky="false" life="2000" />
+
+                <h:panelGrid columns="3" style="padding-bottom: 0px ; margin: 0px" >
+                    <h:panelGrid columns="1" style=" padding-bottom: 0px" >
+                        <p:graphicImage  value="/Logo_1.png"/>
+
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3" style="  margin-left: 820px;background: seashell; margin-top: 30px ; border-radius: 20px">
+                                                     
+
+
+                        <h:outputText  value="Welcome's :  #{login.user}" style="color: blue; "/>
+                         <span class="ui-separator">
+                            <span class="ui-icon ui-icon-grip-dotted-vertical" /> 
+                        </span>
+                        <h:outputText  value="Region :#{login.region}"  style="color: #045491; "/>  
+                    </h:panelGrid>
+                    <h:panelGrid columns="6" style="margin-top: 20px ;">
+                        <p:spacer/>
+                        <p:button  id="home" style="border-radius: 25px; background: aqua;" href="/user/Welcome.jsf" icon="ui-icon-home" />    
+                        <p:tooltip   for="home" value="Home" />
+                        <p:commandButton id="dynaButton" type="button" style="border-radius: 25px;  background: aqua; "  icon="ui-icon-gear">
+                            <p:slideMenu overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="background: aqua;height: 25px;border-radius: 25px; ">
+                                <p:menuitem id="movieBtn" style="border-radius: 25px; background: aqua;"  value="Reset Password"    icon="ui-icon-key" />
+                            </p:slideMenu>
+                        </p:commandButton>                       
+                        <p:tooltip   for="dynaButton" value="Setting" />
+                        <p:commandButton  id="button"    action="#{login.logout()}" icon="ui-icon-extlink" style="border-radius: 25px;background: aqua "  />
+                        <p:tooltip   for="button" value="Logout" />
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:overlayPanel id="reset" style="background: lemonchiffon ;border: none"  for="movieBtn"   hideEffect="fade" dynamic="true" >                           
+
+
+                    <h:panelGrid columns="1" style="background: lemonchiffon" id="matchGrid" cellpadding="5">                                
+
+                        <p:password value="#{resetPass.olpassword}" required="true" requiredMessage="Current Password required" placeholder="Current Password" label="Current Password"/>
+                        <p:spacer/>
+                        <p:password id="feedback" value="#{resetPass.newPassword}" requiredMessage="New Password required" validatorMessage="Passwords doesnt match" match="pwd2" placeholder="New Password" label="New Password" required="true" feedback="true" />
+                        <p:spacer/>
+                        <p:password id="pwd2" value="#{resetPass.newPassword}" requiredMessage="Confirm Password required" validatorMessage="Passwords doesnt match" label="Confirm Password" placeholder="Confirm Password" required="true" />                       
+                        <p:spacer/>
+                        <p:commandButton style="border-radius: 25px;background: aqua " update=":formheader:messagesheader" value="Reset" action="#{resetPass.reste(login.user,login.dbrole,login.password,login.oldpassword)}"  />
+                    </h:panelGrid>
+
+                </p:overlayPanel>
+            </h:form>
+        </ui:composition>	
+    </body>
+</html>

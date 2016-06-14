@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition> 
+            <h:form>
+                <style>
+
+                    ul.ui-menu-list li a:hover,ul.ui-menu-list li a.ui-state-active
+                    {
+                        background:  darkturquoise !important;
+                        border-color: darkturquoise !important;
+                        
+
+                    }
+
+                    ul.ui-menu-list li a span.ui-menuitem-icon
+                    {
+                        color:#ff0000 !important;
+                       
+                         
+                    }
+                     
+                    ul.ui-menu-list li a:active {
+                        background-color: #3e8e41;
+                        box-shadow: 0 5px #666;
+                        transform: translateY(2px);
+                       
+                    }
+
+                </style>
+                <p:menu  style=" width: 95%; background-color: #c1e8d3;border-color: #c1e8d3">                            
+
+                    <p:menuitem style="border-color: #045491;border-radius: 4px; margin-bottom:  2px; background-color: #045491; color:#ffffff ;font-size: medium;box-shadow:0 3px gray;border-color: #045491;"  value="Inward Entry" styleClass="#{view.viewId == '/user/Bill Entry.xhtml' ? 'ui-state-active' : ''}" outcome="/user/Bill Entry.xhtml" icon="ui-icon-note"/>
+                    <p:menuitem style="border-color: #ffffff;border-radius: 4px;  margin-bottom:  2px;background-color: #045491; color: #ffffff;font-size: medium;box-shadow:0 3px gray;border-color: #045491;" value="AP Acknowledge" styleClass="#{view.viewId == '/user/APentry.xhtml' ? 'ui-state-active' : ''}" outcome="/user/APentry.xhtml" icon="ui-icon-mail-closed"/>
+                    <p:menuitem style="border-color: #ffffff ;border-radius: 4px; margin-bottom:  2px; background-color: #045491; color: #ffffff;font-size: medium;box-shadow:0 3px gray;border-color: #045491;" value="Inward Check" styleClass="#{view.viewId == '/user/Invoice Check.xhtml' ? 'ui-state-active' : ''}" outcome="/user/Invoice Check.xhtml" icon="ui-icon-check"  />
+                    <p:menuitem style="border-color: #ffffff ;border-radius: 4px;  margin-bottom:  2px;background-color: #045491; color: #ffffff;font-size: medium;box-shadow: 0 3px gray;border-color: #045491;" value="Search" styleClass="#{view.viewId == '/user/Search Bill.xhtml' ? 'ui-state-active' : ''}" outcome="/user/Search Bill.xhtml" icon="ui-icon-search " />
+                    <p:menuitem rendered="#{login.dbrole=='m' || login.dbrole=='s' }"  style="border-color: #ffffff ;border-radius: 4px;  background-color: #045491; color: #ffffff;font-size: medium;box-shadow:0 3px gray;border-color: #045491;" value="Inward Edit" styleClass="#{view.viewId == '/managers/Inward Edit.xhtml' ? 'ui-state-active' : ''}" outcome="/managers/Inward Edit.xhtml" icon="ui-icon-pencil" />
+
+                </p:menu> 
+            </h:form>
+        </ui:composition>	
+    </body>
+</html>

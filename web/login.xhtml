@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "htth://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head>
+        <meta name="author" content="hriday dubey"/>
+
+        <title>Bill Desk</title>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" /> 
+        <link type="text/css" rel="stylesheet" href="syntaxhighlighter.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+        <script type="text/javascript" src="/Billdesk/js/script.js"></script>
+
+
+        <style>
+
+
+            body{ background-image: url('bg1.jpg');  font-family: 'Source Sans Pro', sans-serif}
+            .form{width:400px; margin:0 auto; background:#1C2B4A; margin-top:150px}
+            .header{height:44px; background:#17233B}
+            .header h2{height:44px; line-height:44px; color:#fff; text-align:center}
+            .login{padding:0 20px}
+            .login span.un{width:10%; text-align:center; color:#0C6; border-radius:3px 0 0 3px}
+            .text{background:#12192C; width:90%; border-radius:0 3px 3px 0; border:none; outline:none; color:#999; font-family: 'Source Sans Pro', sans-serif} 
+            .text,.login span.un{display:inline-block; vertical-align:top; height:40px; line-height:40px; background:#12192C;}
+
+            .btn{height:40px; border:none; background:#0C6; width:100%; outline:none; font-family: 'Source Sans Pro', sans-serif; font-size:20px; font-weight:bold; color:#eee; border-bottom:solid 3px #093; border-radius:3px; cursor:pointer}
+            ul li{height:40px; margin:15px 0; list-style:none}
+            .span{display:table; width:100%; font-size:14px;}
+            .ch{display:inline-block; width:50%; color:#CCC}
+            .ch a{color:#CCC; text-decoration:none}
+            .ch:nth-child(2){text-align:right}
+            /*social*/
+            .social{height:30px;  display:table; width:100%}
+            .social div{display:inline-block; width:42%; color:#eee; font-size:12px; text-align:center; border-radius:3px}
+            .social div i.fa{font-size:16px; line-height:30px}
+            .fb{background:#3B5A9A; border-bottom:solid 3px #036} .tw{background:#2CA8D2; margin-left:16%; border-bottom:solid 3px #3399CC}
+            /*bottom*/
+            .sign{width:90%; padding:0 5%; height:50px; display:table; background:#17233B}
+            .sign div{display:inline-block; width:50%; line-height:50px; color:#ccc; font-size:14px}
+            .up{text-align:right}
+            .up a{display:block; background:#096; text-align:center; height:35px; line-height:35px; width:50%; font-size:16px; text-decoration:none; color:#eee; border-bottom:solid 3px #006633; border-radius:3px; font-weight:bold; margin-left:50%}
+            @media(max-width:480px){ .form{width:100%}}
+
+
+            *
+            {
+                margin: 0px;
+                padding:0px;               
+            } 
+            .fa-user{
+                color: aqua;
+            }
+            .fa-lock{
+                color: aqua;
+            }
+
+             
+
+
+
+            input{
+                border-color:  #01579b !important;
+                border-radius: 0px!important;
+            }
+
+            input.state-error{
+                border-color:  red !important;
+                border-radius: 0px!important;
+            }
+            .ui-button:hover { 
+ 
+                background: aquamarine !important;
+
+            }
+
+        </style>
+
+    </h:head>
+    <h:body  >
+ 
+ 
+
+
+
+                <div class="form" style=" opacity: 0.9; border-radius: 10px!important; ">                      
+                    <div   style=" height:50px; background: white ;border-top-left-radius:  8px!important;border-top-right-radius:  8px!important" > 
+                        <div  class="header" style="margin:41%; background-image: url('blogo.png');  "  /> 
+                    </div>
+                    <div class="login"  >
+                        <br/> 
+                        <form   jsf:id="form" method="post" >
+                            <p:growl id="growl"   life="3000" /> 
+                            <ul>
+                                <li>
+                                    <span class="un"><i class="fa fa-user"></i></span><input  type="text" jsf:value="#{login.user}"  class="text" placeholder="User ID"/></li>
+                                <li>
+                                    <span class="un"><i class="fa fa-lock"></i></span><input  type="password"  jsf:value="#{login.pwd}"  class="text" placeholder="Password"/></li>
+                                <br/> 
+                                <li>
+                                    <p:commandButton style="width: 100%;height: 100%" update=":form:growl"  value="Login" action="#{login.validateUsernamePassword()}"   />
+
+                                </li>
+                                <li style="height:  10px;"><div class="span"><span class="ch"><input type="checkbox" id="r"/> <label  for="r">Remember Me</label> </span></div></li>
+                            </ul>
+                        </form>
+                    </div> 
+                     
+                        
+                        <div class="social" style=" width: 100%;height:  45px; background: white; border-bottom-right-radius:  8px!important; border-bottom-left-radius:  8px!important;">
+                            
+                            <marquee behavior="slide"  direction="left"  >
+                                <img  src="Ebexc.jpg" style="border-bottom-left-radius:  10px!important;height:  45px;" alt="Natural" /> 
+                                <marquee behavior="loop"  onmouseover="this.stop()" onmouseout="this.start()" style="" direction="left"  >
+                                <img src="ZEEL.jpg" style=" height:  39px;wid" alt="Natural" />     
+                                <img src="ZMCL.jpg" style=" height:  38px;"  alt="Natural" />
+                                <img src="DISH.jpg" style=" height:  40px;" alt="Natural" />
+                                <img src="SITI.jpg"  style=" height:  40px;" alt="Natural" />
+                                <img src="ZLL.jpg"  style=" height:  36px;" alt="Natural" />
+                                </marquee>
+
+                            </marquee>
+                            
+ 
+                    </div> 
+
+                </div>  
+                <center style="margin-top: 10%" >Copyright © 2016 Essel Business Excellence Services Limited, An Essel Group Company :: Powered by - Ebex DMS | Billdesk v2.3
+                </center>
+            
+ 
+    </h:body>
+</html>

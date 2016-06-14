@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <title>User Register</title>
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/syntaxhighlighter/syntaxhighlighter.css" />
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+        </style>
+    </h:head>
+
+    <f:view contentType="text/html">
+        <h:body >
+            <p:layout fullPage="true">
+                <p:layoutUnit  gutter="0" position="north"  size="" resizable="true"  >
+
+                    <ui:include src="/admin/Header.xhtml" />
+                </p:layoutUnit>
+                <p:layoutUnit  gutter="0" position="west" size="210" resizable="true" closable="true" collapsible="true">
+                    <ui:include src="/admin/Menue.xhtml" />
+                    </p:layoutUnit>                    
+                    <p:layoutUnit  gutter="0" position="center">
+                     <h:form id="form">
+                <p:growl id="growl" showDetail="true" life="3000" />
+                <p:panel style="padding: 05%;    background-color: #caf1f1; border-color: #caf1f1;" >
+                    <h:panelGrid columns="2" id="matchGrid" cellspacing="25">
+                        <h:outputLabel value="First Name:"/>
+                        <p:inputText value="#{user.firstName}" required="true" label="Please  Your First Name"/>
+                        <h:outputLabel value="Last Name:"/>
+                        <p:inputText value="#{user.lastName}" required="true" label="Please  Your Last Name"/>
+                        <h:outputLabel value="User Name:"/>
+                        <p:inputText value="#{user.username}" required="true" label="Please  Your Last Name"/>
+                        <h:outputLabel value="Password:" />
+                        <p:password id="feedback" value="#{user.password}" match="pwd2" label="Password" required="true" feedback="true" />
+                        <h:outputLabel value=" Confirm Password:" />
+                        <p:password id="pwd2" value="#{user.password}" label="Confirm Password" required="true" />
+                        <h:outputLabel value="Email ID"/>
+                        <p:inputText id="email" value="#{user.email}"  required="true" label="Please enter your email id">
+                         <f:validator validatorId="EmailValidator" />
+                        </p:inputText>
+                        <h:outputLabel value="Region:"/>
+                        <p:selectOneMenu id="console" value="#{user.region}" style="width:125px">
+                            <f:selectItem itemLabel="Noida" itemValue="Noida" />
+                            <f:selectItem itemLabel="Mumbai" itemValue="Mumbai" />
+                            <f:selectItem itemLabel="Kolkata" itemValue="Kolkata" />
+                            <f:selectItem itemLabel="Bangalore" itemValue="Bangalore" />
+                            <f:selectItem itemLabel="Chennai" itemValue="Chennai" />
+                            <f:selectItem itemLabel="Hyderabad" itemValue="Hyderabad" />
+                        </p:selectOneMenu>
+                        <h:outputLabel  value="User Type:" />
+                        <p:selectOneRadio id="Role" value="#{user.role}">
+                            <f:selectItem itemLabel="Admin" itemValue="a" />
+                            <f:selectItem itemLabel="User" itemValue="u" />
+                            <f:selectItem itemLabel="Manager" itemValue="m" />
+                            <f:selectItem itemLabel="Supervisor " itemValue="s" />
+                        </p:selectOneRadio>
+                        <p:commandButton id="button" update="form:growl" value="Create" actionListener="#{user.add}"/>
+                    <p:blockUI  block="form"  trigger="button">
+                               <p:graphicImage  value="/ajax-loader-bar.gif"/>  
+
+
+                        </p:blockUI>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit  gutter="0" position="south"   >
+               <ui:include src="/admin/Footer.xhtml" />
+            </p:layoutUnit>
+            </p:layout>
+                
+        </h:body>
+
+    </f:view>
+
+</html>

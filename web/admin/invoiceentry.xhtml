@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+         <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <title>Report</title>
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/syntaxhighlighter/syntaxhighlighter.css" />
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+        </style>
+    </h:head>
+
+    <f:view contentType="text/html">
+        <h:body style="background-color: #036fab">
+            <p:layout fullPage="true">
+                <p:layoutUnit  gutter="0" position="north"  size="" resizable="true"  >
+
+                    <ui:include src="/admin/Header.xhtml" />
+                </p:layoutUnit>
+                <p:layoutUnit  gutter="0" position="west" size="210" resizable="true" closable="true" collapsible="true">
+                    <ui:include src="/admin/Menue.xhtml" />
+                </p:layoutUnit>                    
+                <p:layoutUnit  gutter="0" position="center">
+
+                    <h:form id="form1"> 
+                        <p:dataTable value="#{invoiceReportBean.messages}" var="o" >
+                            <f:facet name="header">  
+                                Invoice Report 
+                            </f:facet>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="ReceiptID" />  
+                                </f:facet>
+                                <h:outputText value="#{o.receiptID}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="InvoiceNo" />  
+                                </f:facet>
+                                <h:outputText value="#{o.invoiceNo}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="VenderName" />  
+                                </f:facet>
+                                <h:outputText value="#{o.venderName}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="InvoiceAmount" />  
+                                </f:facet>
+                                <h:outputText value="#{o.invoiceAmount}"/>
+                            </p:column>
+                            
+                            <p:column filterBy="#{o.region}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Region" />  
+                                </f:facet>
+                                <h:outputText value="#{o.region}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="POCategory" />  
+                                </f:facet>
+                                <h:outputText value="#{o.poCategory}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="Comp. Name" />  
+                                </f:facet>
+                                <h:outputText value="#{o.comName}"/>
+                            </p:column>
+                            <p:column filterBy="#{o.reciDate}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Receiving Date" />  
+                                </f:facet>
+                                <h:outputText value="#{o.reciDate}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">  
+                                    <h:outputText value="AP Number" />  
+                                </f:facet>
+                                <h:outputText value="#{o.APNo}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit  gutter="0" position="south"   >
+                <ui:include src="/admin/Footer.xhtml" />
+            </p:layoutUnit>
+            </p:layout>
+        </h:body>
+
+    </f:view>
+
+</html>

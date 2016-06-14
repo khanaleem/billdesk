@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <title>Invoice Entry</title>
+
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/syntaxhighlighter/syntaxhighlighter.css" />
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+
+             
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+            *
+            {
+                margin: 0px;
+                padding:0px;               
+            }          
+           
+
+             
+        </style>
+    </h:head>
+
+    <f:view contentType="text/html">
+        <h:body  >
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" gutter="0" size="" resizable="true"  >
+
+                    <ui:include src="/admin/Header.xhtml" />
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" gutter="0" size="210"  resizable="true" closable="true" collapsible="true">
+                    <ui:include src="/admin/Menue.xhtml" />
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center" gutter="0">              
+                    <h:form id="enter">
+                        <p:growl id="growl" sticky="false" />  
+                        <h:panelGrid  columns="3" > 
+
+
+                            <p:panel     style="height: 100%; border: beige;  background-color: beige;">
+                                <f:facet name="header">
+                                    Invoice Receiving Details
+                                </f:facet>
+
+                                <h:panelGrid columns="2" columnClasses="label, value">
+
+                                    <h:outputText  value="Receiving Date: * &nbsp; &nbsp;" />
+                                    <p:calendar value="#{invoiceEntryD.reciDate}"  maxdate="#{invoiceEntryD.currentDate}" effect="fold" disabled="true" pattern="dd/MM/yyyy" mask="true" required="true" label="Receiving Date"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputLabel  value="Delivery Method: *" />
+                                    <p:selectOneRadio id="Role1" value="#{invoiceEntryD.delMethod}" required="true" label="Delivery Method" >
+                                        <f:selectItem itemLabel="Drop Box &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  "  itemValue="Drop Box" />
+
+                                        <f:selectItem itemLabel="Courier &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  "  itemValue="Courier" />
+
+                                        <f:ajax render="method" />
+                                        <f:ajax render="method1" />
+                                        <f:ajax render="method3" />
+                                        <f:ajax render="method4" />
+                                        <f:ajax render="method5" />
+                                        <f:ajax render="method6" />
+                                    </p:selectOneRadio>
+                                </h:panelGrid>
+                                <h:panelGrid columns="4" columnClasses="label, value">
+                                    <h:panelGrid columns="1" columnClasses="label"> 
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    </h:panelGrid>                                        
+                                    <h:panelGrid columns="1" columnClasses="value">                                         
+                                        <p:inputMask id="method" value="#{invoiceEntryD.DDSNo}" disabled="#{invoiceEntryD.delMethod == 'Courier'or invoiceEntryD.delMethod == 'Physical Handover'}"   mask="9999?99999" required="true" label="DDS No" placeholder="DDS No" />
+                                        <p:inputMask id="method3" value="#{invoiceEntryD.pageNo}" disabled="#{invoiceEntryD.delMethod == 'Courier'or invoiceEntryD.delMethod == 'Physical Handover'}"   mask="?999999999"  required="true" label="No of Pages" placeholder="No of Pages"/>
+                                        <p:calendar id="method1" value="#{invoiceEntryD.DDDate}" maxdate="#{invoiceEntryD.currentDate}"  effect="fold" pattern="dd/MM/yyyy" mask="true"  disabled="#{invoiceEntryD.delMethod == 'Courier'or invoiceEntryD.delMethod == 'Physical Handover'}"   label="DDS Date"   placeholder="DDS Date"/>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1" columnClasses="value">
+                                        <p:autoComplete id="method4" autocomplete="on" value="#{invoiceEntryD.courierName}" completeMethod="#{invoiceEntryD.completeCourier}" maxResults="10" disabled="#{invoiceEntryD.delMethod == 'Drop Box'or invoiceEntryD.delMethod == 'Physical Handover'}"   label="Courier Name" placeholder="Courier Name" />
+                                        <p:inputMask id="method5" value="#{invoiceEntryD.courierNo}" disabled="#{invoiceEntryD.delMethod == 'Drop Box'or invoiceEntryD.delMethod == 'Physical Handover'}"   mask="*****?*************"  required="true" label="POD No" placeholder="POD No"/>
+                                        <p:calendar id="method6" value="#{invoiceEntryD.courierDate}" maxdate="#{invoiceEntryD.currentDate}"  effect="fold" pattern="dd/MM/yyyy" mask="true"  disabled="#{invoiceEntryD.delMethod == 'Drop Box'or invoiceEntryD.delMethod == 'Physical Handover'}"   label="Courier Date"   placeholder="Courier Date"/>
+                                    </h:panelGrid>                                                                                      
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel   style="height: 100%; border: beige; background-color: beige;">
+                                <f:facet name="header">
+                                    Sender Details
+                                </f:facet>
+
+                                <h:panelGrid columns="2" cellspacing="6" columnClasses="label, value">
+                                    <p:spacer/><p:spacer/>
+                                    <h:outputText value="  Name: * " />
+                                    <p:autoComplete   value="#{invoiceEntryD.senderName}" completeMethod="#{invoiceEntryD.completeName}" maxResults="10" required="true" forceSelection="false" />
+
+                                    <h:outputText value="  Email:    *" />                                     
+                                    <p:autoComplete   value="#{invoiceEntryD.senderEmail}" completeMethod="#{invoiceEntryD.completeEmail}" maxResults="10" required="true" forceSelection="false" >
+                                        <f:validator validatorId="EmailValidator" />
+                                    </p:autoComplete>
+
+                                    <h:outputText value="  Mobile:  " />
+                                    <p:inputMask value="#{invoiceEntryD.senderMo}"  mask="9999999999" label="Sender Name"/>
+
+                                    <h:outputText value="  Ekbhas:     " />
+                                    <p:inputMask value="#{invoiceEntryD.senderEK}" mask="9999?99" label="Sender Email" />
+
+                                </h:panelGrid>
+
+                            </p:panel> 
+                            <h:panelGrid columns="3"  style="padding-top: 140px ;  " >
+                                <p:commandButton id = "loading" icon="ui-icon-plus" value="Add" type="button"   onclick="PF('dlg1').show();" />
+                                <p:commandButton  id="saveBtn" icon="ui-icon-disk" update="enter" process="@this" actionListener="#{invoiceEntryD.reset()}"    value="Save &amp; Submit"    />
+                                <p:commandButton  id="saveBtn1" icon="ui-icon-mail-closed" update="enter" process="@this" actionListener="#{remarksMail.mailRemarks(invoiceEntryD.DDSNo,invoiceEntryD.courierNo)}"  value="Send Mail"     />
+
+                            </h:panelGrid>
+
+
+                        </h:panelGrid>                       
+                        <p:dialog   widgetVar="dlg1"  hideEffect="fade" dynamic="true"  style="width:1000px; background-color: lightblue;"     >
+                            <h:panelGrid columns="2"  columnClasses="label, value">
+                                <h:panelGrid columns="1"  columnClasses="label, value" style="height: 410px;">
+                                    <p:panel styleClass="customTitleBar"  style="height: 100%; border: beige; background-color: beige;">
+                                        <f:facet name="header">
+                                            Invoice Details
+                                        </f:facet>
+                                        <h:panelGrid columns="1" cellspacing="3" columnClasses="label, value">
+                                            <h:panelGrid columns="2" columnClasses="label, value">
+                                                <h:outputLabel value="Document Type: *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"/>
+                                                <p:selectOneMenu  value="#{invoiceEntryD.docType}" style="width:125px" required="true">
+                                                    <f:selectItem itemLabel="Select Document" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItem itemLabel="Vendor Invoice" itemValue="Vendor Invoice" />
+                                                    <f:selectItem itemLabel="Expence Voucher" itemValue="Expence Voucher" /> 
+                                                </p:selectOneMenu>
+                                                <h:outputLabel value="Company Name: *"/>
+                                                <p:selectOneMenu id="comName" value="#{invoiceEntryD.comName}" style="width:125px" required="true">
+                                                    <f:selectItem itemLabel="Select Company" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItem itemLabel="Dish TV" itemValue="Dish TV" />
+                                                    <f:selectItem itemLabel="Dish Infra" itemValue="Dish Infra" />
+                                                    <f:selectItem itemLabel="Cyquator" itemValue="Cyquator" />
+                                                    <f:selectItem itemLabel="Siti Cable" itemValue="Siti Cable" />
+                                                    <f:selectItem itemLabel="Ebex" itemValue="Ebex" />
+                                                    <f:selectItem itemLabel="ZEEL" itemValue="ZEEL" />
+                                                    <f:selectItem itemLabel="ZLL" itemValue="ZLL" />
+                                                    <f:selectItem itemLabel="ZMCL" itemValue="ZMCL" />
+                                                    <f:selectItem itemLabel="LEEL" itemValue="LEEL" />                                                    
+                                                    <f:ajax render="ZEEL" />
+                                                </p:selectOneMenu>
+                                                
+                                                <h:outputLabel value="Invoice Type: *"/>
+                                                <p:selectOneMenu id="ZEEL" value="#{invoiceEntryD.invoiceType}"   style="width:125px" required="true">
+                                                    <f:selectItem itemLabel="Select Invoice Type" itemValue="" noSelectionOption="true"   />
+                                                    <f:selectItem itemLabel="Service" itemValue="Service"   />
+                                                    <f:selectItem    itemLabel="Material" itemValue="Material" itemDisabled="#{invoiceEntryD.comName == 'ZEEL'}" />
+                                                    <f:selectItem itemLabel="Both" itemValue="Both" /> 
+                                                </p:selectOneMenu>                                                        
+
+                                                <h:outputText value="Invoice NO.:  *" />                                               
+                                                <p:inputText value="#{invoiceEntryD.invoiceNo}" maxlength="16"  required="true" label="Invoice NO.">
+                                                    <f:validateLength minimum="1" maximum="16"  />
+                                                </p:inputText>  
+                                                <h:outputText value="Total Invoices:  *" />
+                                                <p:inputMask value="#{invoiceEntryD.noOfInvoice}"  mask="9?999" required="true" label="Total Invoices"/>
+
+                                                <h:outputText  value="Invoice Date: *" />
+                                                <p:calendar value="#{invoiceEntryD.invoiceDate}" maxdate="#{invoiceEntryD.currentDate}"  effect="fold" pattern="dd/MM/yyyy" mask="true" required="true" label="Invoice Date"/>
+
+                                                <h:outputText value="Vendor Name: *" />
+                                                <p:autoComplete   value="#{invoiceEntryD.venderName}" completeMethod="#{invoiceEntryD.completeVendor}" maxResults="10" required="true" forceSelection="false" >
+                                                    <f:validateLength minimum="3" maximum="150"  />
+                                                </p:autoComplete>
+                                                <h:outputText value="Invoice Amount: * " />
+                                                <p:inputMask value="#{invoiceEntryD.billAmount}"  mask="?999999999999" required="true" label="Invoice Amount"/>
+
+                                                <p:selectOneRadio  value="#{invoiceEntryD.poCategory}" required="true" label="PO Category">
+                                                    <f:selectItem itemLabel="Non PO." itemValue="Non PO" />
+                                                    <f:selectItem itemLabel="PO."  itemValue="PO" />
+                                                    <f:ajax render="PONumber" />
+                                                    <f:ajax render="PONumber1" />
+                                                    <f:ajax render="PONumber2" />
+                                                    <f:ajax render="PONumber3" />
+                                                    <f:ajax render="PONumber4" />
+                                                    <f:ajax render="PONumber5" />
+                                                    <f:ajax render="PONumber6" />
+                                                    <f:ajax render="PONumber7" />
+                                                    <f:ajax render="PONumber8" />
+                                                    <f:ajax render="PONumber9" />
+                                                    <f:ajax render="PONumber10" />
+                                                </p:selectOneRadio>
+                                                <p:inputMask id="PONumber" value="#{invoiceEntryD.PONo}" disabled="#{invoiceEntryD.poCategory == 'Non PO'}"  mask="9999999999" required="true" label="PO Number" placeholder="PO Number"/>
+
+                                                <p:selectOneMenu  id="PONumber1" value="#{invoiceEntryD.costcenter}" style="width:80px" disabled="#{invoiceEntryD.poCategory == 'PO'}" required="true"  >
+                                                    <f:selectItem itemLabel="Select" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItem itemLabel="Costcenter No" itemValue="Costcenter No" />
+                                                    <f:selectItem itemLabel="Project Code" itemValue="Project Code" />
+                                                </p:selectOneMenu>
+                                                <p:inputMask id="PONumber2" value="#{invoiceEntryD.costcenterNo}"  disabled="#{invoiceEntryD.poCategory == 'PO'}" mask="?************"  label="Costcenter" placeholder="Costcenter/Pr. Code" required="true" />
+                                            </h:panelGrid>
+                                            <h:panelGrid columns="1" >
+                                                <p:selectOneMenu  id="PONumber10" value="#{invoiceEntryD.nonPoCategory}" style="width:245px" disabled="#{invoiceEntryD.poCategory == 'PO'}" required="true">
+                                                    <f:selectItem itemLabel="Select Non PO Category" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItem itemLabel="Material/Serviceinvoice less then 20K" itemValue="Material/Serviceinvoice less then 20Ko" />
+                                                    <f:selectItem itemLabel="Fixed monthly payment" itemValue="Fixed monthly payment" />
+                                                    <f:selectItem itemLabel="Utility service bills" itemValue="Utility service bills" />
+                                                    <f:selectItem itemLabel="Legal expenses/fees/court fees / stamps " itemValue="Legal expenses/fees/court fees / stamps" />
+                                                    <f:selectItem itemLabel="Statuary payments " itemValue="Statuary payments" />
+                                                    <f:selectItem itemLabel="Import related purchases payment" itemValue="Import related purchases payment" />
+                                                    <f:selectItem itemLabel="Employee expense claims" itemValue="Employee expense claims" />
+                                                </p:selectOneMenu>  
+                                            </h:panelGrid>
+
+                                            <h:panelGrid columns="1" >
+                                                <h:outputText value="Remarks :" />
+                                                <p:inputTextarea value="#{invoiceEntryD.remarks}" style="width:260px;  " autoResize="false" label="Remarks ">
+                                                    <f:validateLength minimum="1" maximum="150"  />
+                                                </p:inputTextarea>  
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </p:panel>
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" style="height: 400px;" columnClasses="label, value">
+
+                                    <p:panel styleClass="customTitleBar" style="height: 100%; border: beige; background-color: beige;">
+                                        <f:facet name="header">
+                                            Check List
+                                        </f:facet>
+                                        <h:panelGrid  columns="2" cellspacing="3" style="margin-bottom:10px" >
+                                            <h:outputLabel   value="* Invoice date available " />
+                                            <p:selectBooleanCheckbox value="#{invoiceEntryD.INVD}" requiredMessage="Invoice date not available"  >
+                                                <f:validator validatorId="RequiredCheckboxValidator" />
+                                            </p:selectBooleanCheckbox>
+                                            <h:outputText value="* Invoice No. available " />
+                                            <p:selectBooleanCheckbox value="#{invoiceEntryD.INVNO}" requiredMessage="Invoice No. not available"  >
+                                                <f:validator validatorId="RequiredCheckboxValidator" />
+                                            </p:selectBooleanCheckbox>
+                                            <h:outputText value="* Vendor name &amp; address available " />
+                                            <p:selectBooleanCheckbox value="#{invoiceEntryD.VNAD}" requiredMessage="Vendor name &amp; address not available" >
+                                                <f:validator validatorId="RequiredCheckboxValidator" />
+                                            </p:selectBooleanCheckbox>
+                                            <h:outputText value=" Company name &amp; address available" />
+                                            <p:selectBooleanCheckbox value="#{invoiceEntryD.CNAD}" />
+                                            <h:outputText value=" Separate SBC available" />
+                                            <p:selectBooleanCheckbox value="#{invoiceEntryD.STSBC}" />
+                                            <h:outputText value="* Actual invoice " />
+                                            <p:selectBooleanCheckbox value="#{invoiceEntryD.AI}" requiredMessage="Actual invoice not available" >
+                                                <f:validator validatorId="RequiredCheckboxValidator" />
+                                            </p:selectBooleanCheckbox>
+                                            <h:outputText value="Invoice with multiple PO." />
+                                            <p:selectBooleanCheckbox id="PONumber3" value="#{invoiceEntryD.IVMPO}" disabled="#{invoiceEntryD.poCategory == 'Non PO'}" />
+                                            <h:outputText value="*NON-PO: Costcenter, WBS, Project code mentioned " />
+                                            <p:selectBooleanCheckbox id="PONumber4" value="#{invoiceEntryD.NPOCWPC}" disabled="#{invoiceEntryD.poCategory == 'PO'}" >
+                                                <f:validator validatorId="RequiredCheckboxValidator" />
+                                            </p:selectBooleanCheckbox>
+                                            <h:outputText value="NON-PO: Nature of expence &amp; vendor code mentioned " />
+                                            <p:selectBooleanCheckbox id="PONumber5" value="#{invoiceEntryD.NPONEVC}" disabled="#{invoiceEntryD.poCategory == 'PO'}" />
+                                            <h:outputText value=" NON-PO: Authorised signatory sign available " />
+                                            <p:selectBooleanCheckbox id="PONumber6" value="#{invoiceEntryD.NPOASIN}" disabled="#{invoiceEntryD.poCategory == 'PO'}" />
+                                            <h:outputText value=" PO: PO No. &frasl; PO copy mentioned &frasl;attached "  />
+                                            <p:selectBooleanCheckbox id="PONumber7" value="#{invoiceEntryD.PONOA}" disabled="#{invoiceEntryD.poCategory == 'Non PO'}"/>
+                                            <h:outputText value="PO Required: Invoive amt. &gt; 20000 " />
+                                            <p:selectBooleanCheckbox id="PONumber8" value="#{invoiceEntryD.POR2K}" disabled="#{invoiceEntryD.poCategory == 'Non PO'}"/>
+                                            <h:outputText value=" PO: Vendor signature available " />
+                                            <p:selectBooleanCheckbox id="PONumber9" value="#{invoiceEntryD.POVSIN}" disabled="#{invoiceEntryD.poCategory == 'Non PO'}"/>
+                                            <h:outputText value="PAN No. available on invoice " />
+                                            <p:selectBooleanCheckbox value="#{invoiceEntryD.PANNO}" requiredMessage="PAN No. not available on invoice " />
+                                            <h:outputText value="ST No. available on invoice  " />
+                                            <p:selectBooleanCheckbox value="#{invoiceEntryD.STTIN}" />
+                                        </h:panelGrid> 
+                                    </p:panel>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid  columns="3" style="margin-bottom:10px" >
+                                <p:commandButton value="Save" style="height: 30px" styleClass="regCommandButton" oncomplete="PF('dlg1').show(); " actionListener="#{invoiceEntryD.saven(login.region)}" update="enter"  />
+                                <p:spacer/>
+                                <p:commandButton value="Close" style="height: 30px" styleClass="SAVE" oncomplete="PF('dlg1').hide();"/>
+                            </h:panelGrid>
+
+                        </p:dialog>
+                        <p:dataTable id="dataTable" scrollable="true"  scrollHeight="290" value="#{invoiceEntryD.getentryData(login.region)}" var="o" widgetVar="os"  >
+                            <f:facet name="header">  
+                                Added Invoice
+                            </f:facet>
+                            <p:column headerText ="Remarks" style="width:40px">
+                                <p:rowToggler />
+                            </p:column>
+                            <p:column  >
+                                <f:facet name="header" >  
+                                    <h:outputText value="Receipt ID" />  
+                                </f:facet>
+                                <h:outputText  value="#{o.receipID}"/>
+                            </p:column>
+                            <p:column  >
+                                <f:facet name="header">  
+                                    <h:outputText value="Document Type" />  
+                                </f:facet>
+                                <h:outputText value="#{o.docType}"/>
+                            </p:column>
+                            <p:column  >
+                                <f:facet name="header">  
+                                    <h:outputText value="Invoice Number" />  
+                                </f:facet>
+                                <h:outputText value="#{o.invoiceNo}"/>
+                            </p:column>
+                            <p:column   >
+                                <f:facet name="header">  
+                                    <h:outputText value="Vender Name" />  
+                                </f:facet>
+                                <h:outputText value="#{o.venderName}"/>
+                            </p:column>                          
+
+                            <p:column  >
+                                <f:facet name="header">  
+                                    <h:outputText value="Invoice Date" />  
+                                </f:facet>
+                                <h:outputText value="#{o.invoiceDate}"/>
+                            </p:column>
+
+                            <p:column  >
+                                <f:facet name="header">  
+                                    <h:outputText value="Invoice Amount" />  
+                                </f:facet>
+                                <h:outputText value="#{o.billAmount}"/>
+                            </p:column>
+                            <p:column  >
+                                <f:facet name="header">  
+                                    <h:outputText value="PO No." />  
+                                </f:facet>
+                                <h:outputText value="#{o.PONo}"/>
+                            </p:column>
+                            <p:column  >
+                                <f:facet name="header">  
+                                    <h:outputText value="Costcenter No." />  
+                                </f:facet>
+                                <h:outputText value="#{o.costcenterNo}"/>
+                            </p:column>
+
+                            <p:rowExpansion>
+                                <p:panelGrid  columns="2" columnClasses="label,value" style="width:600px">
+
+
+                                    <h:outputText value="#{o.remarks}" />
+
+                                </p:panelGrid>
+                            </p:rowExpansion>
+                        </p:dataTable>
+                        <p:blockUI block="enter" trigger="saveBtn">
+                            
+                            <p:graphicImage  value="/ajax-loader-bar.gif"/>
+                        </p:blockUI>
+                        <p:blockUI block="enter"  trigger="saveBtn1" >
+                            
+                            <p:graphicImage  value="/ajax-loader-bar.gif"/>
+                        </p:blockUI>
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="south" gutter="0"  >
+                    <ui:include src="/admin/Footer.xhtml" />
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>

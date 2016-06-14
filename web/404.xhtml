@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "htth://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link rel="icon" type="image/png" href="#{request.contextPath}/Logo_2.png"/>
+
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+        <title>404</title>
+        <style>
+            *
+            {
+                margin:auto;
+                padding:0px;               
+            } 
+            .login{
+                background-color: darkgreen;
+                    
+            }
+        </style>
+        
+    </h:head>
+ <h:body style="background-color: #036fab">
+
+        <p:layout fullPage="true" style="padding: 0px" >            
+            <p:layoutUnit position="north" >
+                  
+                <h:panelGrid columns="3" style="padding-bottom: 0px ; margin: 0px" >
+                    <h:panelGrid columns="1" style=" padding-bottom: 0px" >
+                        <p:graphicImage  value="/Logo_1.png"/>
+                    </h:panelGrid>
+                    
+
+                </h:panelGrid>
+            </p:layoutUnit>
+            
+            <p:layoutUnit position="center" style="background-color: cadetblue"  >
+                <center>
+                    <p:graphicImage  value="/404.jpg"/>
+                </center> 
+                
+            </p:layoutUnit>
+            <p:layoutUnit position="south"   >
+                <center>Copyright © 2016 Essel Business Excellence Services Limited, An Essel Group Company :: Powered by - Ebex DMS
+            </center>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

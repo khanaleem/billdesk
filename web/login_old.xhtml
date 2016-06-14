@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "htth://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" /> 
+        <link type="text/css" rel="stylesheet" href="syntaxhighlighter.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+        <title>Welcome to Bill desk </title>
+        <style>
+            *
+            {
+                margin: 0px;
+                padding:0px;               
+            } 
+            .fa-user{
+                color: aqua;
+            }
+            .fa-key{
+                color: aqua;
+            }
+             
+            .ui-layout-west,.ui-layout-west .ui-layout-unit-content  {
+                overflow: visible !important;
+                background-color:#036fab ;
+                border-bottom-color:  red;
+                border-top-color: red;
+                border:#036fab ;
+
+            }
+            .ui-layout-center,.ui-layout-center .ui-layout-unit-content  {
+                overflow: visible !important;
+                background-color: white;
+                border: white;
+
+            }
+            .ui-layout-north,.ui-layout-north .ui-layout-unit-content  {
+                overflow: visible !important;
+                background-color:white ;
+                border-bottom-color:  red;
+
+            }
+            .ui-layout-south,.ui-layout-south .ui-layout-unit-content  {
+                overflow: visible !important;
+                background-color:white ;
+                border-top-color: red;
+
+            }
+            
+            input{
+                border-color:  #036fab !important;
+                border-radius: 5px!important;
+            }
+             .ui-button :hover { 
+                font-size: medium;
+                border-radius: 10px!important;
+                box-shadow:.8px .8px 2px 2px aquamarine !important;
+ 
+            }
+            
+        </style>
+
+    </h:head>
+    <h:body  >
+        <p:layout fullPage="true"    >            
+            <p:layoutUnit position="north"  minSize="54" gutter="0" >                
+                <ui:include src="/header.xhtml" />
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west"   size="370"  collapsible="true" gutter="0" >                
+                <h:form id="login-form" >
+                    <p:growl id="growl"   life="3000" /> 
+                    <p:panel  style="background-color: #036fab;  border-color:   #036fab; margin-top: 150px;">
+
+                        <p:panel  style="background-color: #036fab;  border-color:  #036fab; border-bottom-color: aqua; ">
+                            <h:outputText value="BILL INWARD DESK" style="color: aliceblue; padding-left: 85px;font-size: large"/>
+                        </p:panel>
+                        <p:separator style="background:aqua ;border-color:  aqua; height:10px" />
+                        <p:panel  style="background-color: #036fab;  border-color: #036fab  ; border-bottom-color: #036fab; padding-top: 10% ;
+                                  padding-left: 19%;
+                                  padding-right: 14%; padding-bottom: 10%">
+
+                            <h:panelGrid id="loginPanel"    columns="2" >                          
+                                <i class="fa fa-user fa-2x"></i>
+                                <p:inputText id="username" value="#{login.user}" placeholder="username"  />
+                                <p:spacer></p:spacer>
+                                <p:message for="username" ></p:message>
+                                <i class="fa fa-key fa-2x"></i>
+                                <p:password id="password" value="#{login.pwd}"  feedback="false"  placeholder="password"/>
+                                <p:spacer></p:spacer>
+                                <p:message for="password"></p:message>
+                                <p:spacer></p:spacer>
+                                <p:commandButton id="b"  update=":login-form:growl" value="Login" action="#{login.validateUsernamePassword()}"   />
+
+                            </h:panelGrid>   
+                        </p:panel>
+                    </p:panel>
+                </h:form>   
+            </p:layoutUnit>
+            <p:layoutUnit position="center" gutter="0"   >
+
+                <center> <p:graphicImage  value="/Ebex.jpg"/>
+                </center>
+            </p:layoutUnit>
+            <p:layoutUnit position="south"  gutter="0" >
+                <center>Copyright © 2016 Essel Business Excellence Services Limited, An Essel Group Company :: Powered by - Ebex DMS | Billdesk v2.3
+                </center>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

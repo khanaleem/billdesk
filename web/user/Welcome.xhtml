@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <title>User Dashboard</title>
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/syntaxhighlighter/syntaxhighlighter.css" />
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+             
+            *
+            {
+                margin: 0px;
+                padding:0px;               
+            } 
+             
+            
+             
+             
+        
+        </style>
+        <script type="text/javascript" src="/Billdesk/gchart/loader.js"></script>
+         
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+         ['Company', 'Count'],
+         ['DishTV', #{userChart.dishTV}],
+         ['DishInfra', #{userChart.dishInfra}],
+         ['Cyquator', #{userChart.cyquator}],
+         ['Ebex', #{userChart.ebex}],
+         ['LEEL', #{userChart.LEEL}],
+         ['SitiCable', #{userChart.sitiCable}],
+         ['ZLL', #{userChart.ZLL}],
+         ['ZEEL', #{userChart.ZEEL}],
+         ['ZMCL', #{userChart.ZMCL}] 
+           
+        ]);
+
+        var options = {
+            width: 410,
+            height: 260, 
+            pieSliceText: 'label',
+            backgroundColor: '#caf1f1',
+              
+              chartArea:{ left:10,  width:'100%',height:'100%'},
+          title: 'Total Inward Count By Company',
+          pieHole: 0.4
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+      
+    </script>
+        
+     
+    </h:head>
+
+    <f:view contentType="text/html">
+        <h:body  >
+            <p:layout  fullPage="true">
+                <p:layoutUnit   position="north" gutter="0" size="" resizable="true"  >
+
+                    <ui:include src="/user/Header.xhtml" />
+                </p:layoutUnit>
+                <p:layoutUnit position="west" gutter="0" size="210" resizable="true" closable="true" collapsible="true">
+                    <ui:include src="/user/Menue.xhtml" />
+                </p:layoutUnit>
+                <p:layoutUnit position="center" gutter="0" > 
+                    <h:panelGrid   columns="1">
+                        <h:panelGrid>
+                        <p:panel toggleable="true" toggleOrientation="horizontal" style=" background-color:  #caf1f1;border-color:#0066cc;border-top-color:#caf1f1;width:1140px;height: 280px;" >  
+                            <p:chart type="bar" model="#{userChart.animatedModel2}" style="width:1130px;height: 245px;" />
+                              <f:facet name="header">
+                                    Regional Inward Count Graph
+                                </f:facet>
+                        </p:panel>
+                        </h:panelGrid>
+                    <h:panelGrid   columns="2">
+                        
+                        <p:panel toggleable="true" toggleOrientation="horizontal" style=" background-color:  #caf1f1; border-color:#0066cc;border-top-color:#caf1f1;width:420px;height: 290px;"  >
+                          <f:facet name="header">
+                                    Total Inward Count By Company
+                                </f:facet>
+                            <div id="donutchart"/>
+                         </p:panel>
+                       
+                        <p:panel toggleable="true" toggleOrientation="horizontal" style=" background-color:  #caf1f1;border-color:#0066cc;border-top-color:#caf1f1;width:710px;height: 290px;" >  
+                            <p:chart type="line"  model="#{userChart.createAnimatedModels(login.region)}" style=" height: 260px;"   />
+                             <f:facet name="header">
+                                    #{login.region} Inward Graph
+                                </f:facet>
+                        </p:panel>
+                        </h:panelGrid>
+                        
+                    </h:panelGrid>
+                             
+                </p:layoutUnit>
+                <p:layoutUnit position="south" gutter="0"  >
+                <ui:include src="/user/Footer.xhtml" />
+            </p:layoutUnit>
+            </p:layout>
+        </h:body>
+
+    </f:view>
+
+</html>

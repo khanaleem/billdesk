@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+         <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <meta name="Author" content="Hriday Dubey"/>
+        </f:facet>
+        <link rel="icon" type="image/png" href="/Billdesk/Logo_2.png"/>
+        <title>Edit User </title>
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="/Billdesk/css/syntaxhighlighter/syntaxhighlighter.css" />
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+        </style>
+    </h:head>
+
+    <f:view contentType="text/html">
+        <h:body style="background-color: #036fab">
+            <p:layout fullPage="true">
+                <p:layoutUnit  gutter="0" position="north"  size="" resizable="true"  >
+
+                   <ui:include src="/admin/Header.xhtml" />
+                </p:layoutUnit>
+                <p:layoutUnit  gutter="0" position="west" size="210" resizable="true" closable="true" collapsible="true">
+                    <ui:include src="/admin/Menue.xhtml" />
+                    </p:layoutUnit>
+                    
+                    <p:layoutUnit  gutter="0" position="center">
+                        <h:form id="form">
+                            <p:growl id="msgs" showDetail="true"/>
+
+                            <p:dataTable id="userrList" var="car" value="#{edituser.userrList}" editable="true" style="margin-bottom:20px">
+                                <f:facet name="header">
+                                    Userlist
+                                </f:facet>
+
+                                <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":form:msgs" />
+                                <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":form:msgs" />
+
+                                <p:column headerText="User Name">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{car.username}" /></f:facet>
+                                        <f:facet name="input"><p:inputText id="modelInput" value="#{car.username}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="First Name">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{car.firstName}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{car.firstName}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Last Name">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{car.lastName}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{car.lastName}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Email ID">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{car.emailid}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{car.emailid}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Password">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{car.currenetPassword}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{car.currenetPassword}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Option" style="width:52px">
+                                    <p:rowEditor />
+                                </p:column>
+                            </p:dataTable>
+
+                        </h:form>
+
+
+                    </p:layoutUnit>
+                    <p:layoutUnit  gutter="0" position="south"   >
+                <ui:include src="/admin/Footer.xhtml" />
+            </p:layoutUnit>
+                </p:layout>
+          
+        </h:body>
+
+    </f:view>
+
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <body>
+      <ui:composition> 
+          <h:form>
+              <p:dataTable  id="dataTable5" scrollable="true"  scrollHeight="490" var="AP" value="#{aPAcknowledgement.getHnadoverList(login.user)}"   editMode="cell"  editable="true"     >
+
+
+                                    <p:ajax event="cellEdit" listener="#{aPAcknowledgement.onRowEdit(AP.receiptID)}" ignoreAutoUpdate="true" update=":form:msgs" />
+
+                                    <p:column headerText="Receipt ID"    style="width:60px">
+                                        <h:outputText value="#{AP.receiptID}" />
+                                    </p:column>
+
+                                    <p:column headerText="Invoice No"   style="width:180px">
+                                        <h:outputText value="#{AP.invoiceNo}" />
+                                    </p:column>
+
+                                    <p:column headerText="Vendor Name"  >
+                                        <h:outputText value="#{AP.venderName}" />
+                                    </p:column>
+
+
+
+                                    <p:column headerText="Invoice Amount"   style="width:90px">
+                                        <h:outputText value="#{AP.invoiceAmount}" />
+                                    </p:column>                                         
+
+                                    <p:column headerText="AP No" style="width:80px">
+                                        <p:cellEditor>                            
+                                            <f:facet name="output"><h:outputText value="#{AP.APNo}" /></f:facet>
+                                            <f:facet name="input"><h:inputText value="#{aPAcknowledgement.APNo}" style="width:100%" label="Year"/></f:facet>
+                                        </p:cellEditor>
+
+                                    </p:column>  
+
+                                   
+
+                                    <p:column headerText="Options">
+
+                                        <p:commandButton  id="saveBtn4"  update="dataTable5" process="@this" actionListener="#{aPMail.mailRAP(AP.receiptID)}"  value="Send Mail" styleClass="MAIL" />
+                                        <p:blockUI block="dataTable5" trigger="saveBtn4"  >
+                                            Processing Request<br />
+                                            <p:graphicImage  value="/ajax-loader-bar.gif"/>
+                                        </p:blockUI>
+
+                                    </p:column>
+
+                                </p:dataTable>
+                                <p:blockUI block="dataTable5" trigger="dataTable5" >
+                                    Processing Request<br />
+                                    <p:graphicImage  value="/ajax-loader-bar.gif"/>
+                                </p:blockUI>
+                    </h:form>
+      </ui:composition>	
+   </body>
+</html>
